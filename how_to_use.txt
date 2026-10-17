@@ -1,0 +1,20 @@
+blender 5.2 버전(https://www.blender.org/download/)을 다운로드한 후 설치하여야 합니다. blender 설치 후 환경 변수 PATH에 blender의 실행 파일이 들어있는 경로를 추가해주어야 아래 파이썬 스크립트에서 blender를 찾아서 사용할 수 있습니다.
+
+
+1. coco_background.py 스크립트는 합성 이미지 데이터의 배경으로 사용할 COCO17 이미지 데이터 셋을 다운로드 받는 스크립입니다. 처음 한 번만 배경 데이터를 다운로드하기 위해 실행하고 이후에는 실행할 필요가 없습니다.
+
+사용법) python coco_backgrounds.py
+
+
+2. make_dataset.py 스크립트는 obj 포맷의 물체와 이미지 배경(기본값은 위 1에서 다운로드 받은 COCO17 데이터셋) 을 합성하여 훈련에 필요한 합성 이미지 데이터셋을 만들어줍니다. make_dataset.py 스크립트가 blender_render.py 스크립트를 호출하므로 blender_render.py 스크립트는 별도로 호출할 필요가 없습니다.
+
+사용법) 
+① 프로젝트 디렉토리(폴더)에 obj 디렉토리를 생성하고 이 디렉토리 안에 훈련 대상 물체의 obj 파일들을 넣습니다.
+
+② python make_dataset.py --objects /objs -n <물체 당 생성할 훈련 이미지 수> -output <생성된 이미지가 저장될 디렉토리>
+예) python make_dataset.py --objects /objs -n 20 --output smoke
+→ 'smoke'라는 이름의 디렉토리를 생성한 후 물체 당 20개의 훈련 이미지를 생성하여 저장.
+*검증용 이미지는 훈련용 이미지의 20%를 기본으로 생성합니다.
+
+③ 생성된 합성 데이터 셋은 Ultralytics YOLO 모델 훈련에 바로 사용할 수 있도록 디렉토리 구조가 맞춰져있고, 레이블 및 데이터 셋의 위치를 기술하는 YAML 스크립트도 자동으로 생성됩니다.
+
