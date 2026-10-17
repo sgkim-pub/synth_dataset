@@ -12,9 +12,13 @@ blender 5.2 버전(https://www.blender.org/download/)을 다운로드한 후 설
 ① 프로젝트 디렉토리(폴더)에 obj 디렉토리를 생성하고 이 디렉토리 안에 훈련 대상 물체의 obj 파일들을 넣습니다.
 
 ② python make_dataset.py --objects /objs -n <물체 당 생성할 훈련 이미지 수> -output <생성된 이미지가 저장될 디렉토리>
+*검증용 이미지는 훈련용 이미지의 20%를 기본으로 생성합니다.
+
 예) python make_dataset.py --objects /objs -n 20 --output smoke
 → 'smoke'라는 이름의 디렉토리를 생성한 후 물체 당 20개의 훈련 이미지를 생성하여 저장.
-*검증용 이미지는 훈련용 이미지의 20%를 기본으로 생성합니다.
+
+예) python make_dataset.py --objects /objs -n 500 --device GPU --gpu-type CUDA --output hw2
+→ 'hw2'라는 이름의 디렉토리를 생성한 후 물체 당 500개의 훈련 이미지를 GPU를 이용하여 생성하여 저장. nvidia GPU를 사용하면 빠르게(약 x10) 생성 가능합니다.
 
 ③ 생성된 합성 데이터 셋은 Ultralytics YOLO 모델 훈련에 바로 사용할 수 있도록 디렉토리 구조가 맞춰져있고, 레이블 및 데이터 셋의 위치를 기술하는 YAML 스크립트도 자동으로 생성됩니다.
 
